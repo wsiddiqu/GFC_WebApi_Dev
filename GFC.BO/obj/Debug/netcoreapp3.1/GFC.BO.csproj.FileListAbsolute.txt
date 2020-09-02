@@ -1,0 +1,12 @@
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\bin\Debug\netcoreapp3.1\GFC.BO.deps.json
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\bin\Debug\netcoreapp3.1\GFC.BO.dll
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\bin\Debug\netcoreapp3.1\GFC.BO.pdb
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\bin\Debug\netcoreapp3.1\GFC.DAL.dll
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\bin\Debug\netcoreapp3.1\GFC.DAL.pdb
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\obj\Debug\netcoreapp3.1\GFC.BO.csprojAssemblyReference.cache
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\obj\Debug\netcoreapp3.1\GFC.BO.AssemblyInfoInputs.cache
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\obj\Debug\netcoreapp3.1\GFC.BO.AssemblyInfo.cs
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\obj\Debug\netcoreapp3.1\GFC.BO.csproj.CoreCompileInputs.cache
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\obj\Debug\netcoreapp3.1\GFC.BO.csproj.CopyComplete
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\obj\Debug\netcoreapp3.1\GFC.BO.dll
+C:\Users\siddique_w\source\repos\GFC\GFC.BO\obj\Debug\netcoreapp3.1\GFC.BO.pdb

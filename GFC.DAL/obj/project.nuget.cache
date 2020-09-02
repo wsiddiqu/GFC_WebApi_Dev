@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "nctadtT4lstMyQ7RFvHWswlLeXUa/2Tz77+jg0IYhociNK3pCY8yk8qPVIKYrq8urJCEH0xU7Jv0KoIDM+qFrA==",
+  "success": true,
+  "projectFilePath": "C:\\GFC\\GFC.DAL\\GFC.DAL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\AzureUser\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\AzureUser\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\AzureUser\\.nuget\\packages\\system.codedom\\4.7.0\\system.codedom.4.7.0.nupkg.sha512",
+    "C:\\Users\\AzureUser\\.nuget\\packages\\system.diagnostics.eventlog\\4.7.0\\system.diagnostics.eventlog.4.7.0.nupkg.sha512",
+    "C:\\Users\\AzureUser\\.nuget\\packages\\system.management\\4.7.0\\system.management.4.7.0.nupkg.sha512",
+    "C:\\Users\\AzureUser\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
+    "C:\\Users\\AzureUser\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
+    "C:\\Users\\AzureUser\\.nuget\\packages\\system.serviceprocess.servicecontroller\\4.7.0\\system.serviceprocess.servicecontroller.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

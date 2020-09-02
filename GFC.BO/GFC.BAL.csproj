@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GFC.DAL\GFC.DAL.csproj" />
+    <ProjectReference Include="..\GFC.Utility\GFC.Utility.csproj" />
+  </ItemGroup>
+
+</Project>
