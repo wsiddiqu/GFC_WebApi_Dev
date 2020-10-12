@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GFC.DAL.Interfaces
 {
-    public interface IServiceOprationDAL
+    public interface IServiceOperationDAL
     {
         string StopService(string serviceName);
 

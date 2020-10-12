@@ -21,6 +21,7 @@ namespace GFC.Api.Controllers
         }
 
         [HttpGet]
+        [Route("SetRegistryInfo")]
         public ActionResult<Dictionary<string, string>> SetRegistryInfo()
         {
             return _registryInfoBAL.GetRegistryInfo(Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Talon"));
@@ -31,8 +32,8 @@ namespace GFC.Api.Controllers
         /// </summary>
         /// <returns>Dictionary object</returns>
         [HttpGet]
-        [Route("GetTalonRegistryInfo")] 
-        public ActionResult<Dictionary<string, string>> GetTalonRegistryInfo()
+        [Route("GetRegistryInfo")] 
+        public ActionResult<Dictionary<string, string>> GetRegistryInfo()
         {
             return _registryInfoBAL.GetRegistryInfo(Registry.LocalMachine.OpenSubKey(@"Talon"));
         }

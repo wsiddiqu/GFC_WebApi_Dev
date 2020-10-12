@@ -9,6 +9,12 @@ namespace GFC.Utility.Common
     {
         public const int SERVICE_NO_CHANGE = -1;
         public const int STANDARD_RIGHTS_REQUIRED = 0xF0000;
+
+        public enum PrePopJobType
+        {
+            XML,
+            JSON,
+        }
         public enum ServiceStartType : int
         {
             SERVICE_BOOT_START = 0x0,
@@ -150,6 +156,14 @@ namespace GFC.Utility.Common
             NETSETUP_JOIN_UNSECURE = 0x00000040,
             NETSETUP_MACHINE_PWD_PASSED = 0x00000080,
             NETSETUP_DEFER_SPN_SET = 0x10000000
+        }
+
+        public enum FrequencyType
+        {
+            OneTime = 0,
+            RepeatEvery = 1,
+            RepeatEveryDayOfWeek = 2,
+            RepeatEveryDayOfMonth = 3
         }
 
         [Flags]

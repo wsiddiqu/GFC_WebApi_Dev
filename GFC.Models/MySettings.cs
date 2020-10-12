@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GFC.Models
 {
-    public class MySettings
+    public class AppSettings
     {
         public string Message { get; set; }
     }

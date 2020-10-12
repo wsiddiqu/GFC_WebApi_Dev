@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GFC.BAL.Interfaces
 {
-    public interface IServiceOprationBAL
+    public interface IServiceOperationBAL
     {
         string StopService(string serviceName);
 

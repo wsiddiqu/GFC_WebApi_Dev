@@ -19,16 +19,7 @@ namespace GFC.DAL
         /// <returns></returns>
         public string GetIpAddress()
         {
-            String hostName = Dns.GetHostName();
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            return "Computer name :" + hostName;
+            return CommonServiceHelper.GetIpAddress();
         }
 
         /// <summary>
@@ -63,54 +54,54 @@ namespace GFC.DAL
             return lastBoostUptime;
         }
 
-        public string SetRegistry()
-        {
+        //public string SetRegistry()
+        //{
             
-                string returnResult = string.Empty;
-                var test = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings");
+        //        string returnResult = string.Empty;
+        //        var test = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings");
 
-                //storing the values  
-                test.SetValue("Setting1", "This is our setting 1");
-                test.SetValue("Setting2", "This is our setting 2");
-                test.Close();
+        //        //storing the values  
+        //        test.SetValue("Setting1", "This is our setting 1");
+        //        test.SetValue("Setting2", "This is our setting 2");
+        //        test.Close();
 
-                //opening the subkey  
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OurSettings");
-                RegistryKey key1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Talon\LicenseClient");
+        //        //opening the subkey  
+        //        RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OurSettings");
+        //        RegistryKey key1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Talon\LicenseClient");
 
-                if (key1 != null)
-                {
-                    returnResult = "CustomerID : " + key1.GetValue("CustomerID").ToString();
-                    key1.Close();
-                }
+        //        if (key1 != null)
+        //        {
+        //            returnResult = "CustomerID : " + key1.GetValue("CustomerID").ToString();
+        //            key1.Close();
+        //        }
                 
-                return returnResult;
+        //        return returnResult;
             
-        }
+        //}
 
-        public string GetRegistry()
-        {
+        //public string GetRegistry()
+        //{
 
-            string returnResult = string.Empty;
-            var test = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings");
+        //    string returnResult = string.Empty;
+        //    var test = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings");
 
-            //storing the values  
-            test.SetValue("Setting1", "This is our setting 1");
-            test.SetValue("Setting2", "This is our setting 2");
-            test.Close();
+        //    //storing the values  
+        //    test.SetValue("Setting1", "This is our setting 1");
+        //    test.SetValue("Setting2", "This is our setting 2");
+        //    test.Close();
 
-            //opening the subkey  
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OurSettings");
-            RegistryKey key1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Talon\LicenseClient");
+        //    //opening the subkey  
+        //    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OurSettings");
+        //    RegistryKey key1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Talon\LicenseClient");
 
-            if (key1 != null)
-            {
-                returnResult = "CustomerID : " + key1.GetValue("CustomerID").ToString();
-                key1.Close();
-            }
+        //    if (key1 != null)
+        //    {
+        //        returnResult = "CustomerID : " + key1.GetValue("CustomerID").ToString();
+        //        key1.Close();
+        //    }
             
-            return returnResult;
+        //    return returnResult;
 
-        }
+        //}
     }
 }

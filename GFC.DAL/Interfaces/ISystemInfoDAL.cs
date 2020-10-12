@@ -9,6 +9,5 @@ namespace GFC.DAL.Interfaces
         string GetIpAddress();
 
         string GetLastBootUpTime();
-        string SetRegistry();
     }
 }

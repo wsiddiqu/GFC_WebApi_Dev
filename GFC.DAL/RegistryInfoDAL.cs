@@ -103,7 +103,7 @@ namespace GFC.DAL
         /// <param name="backendServerModel"></param>
         public void AddBackendServer(BackendServerModel backendServerModel)
         {
-            string subRegKey = Constants.REGKEY_SA_NASDB + "\\" + backendServerModel.ServerName;
+            string subRegKey = Constants.REGKEY_SA_NASDB + "\\" + backendServerModel.BackendServerName;
             CreateKey(Constants.REGKEY_SA_SERVER_SYSID);
             CreateKey(subRegKey);
 

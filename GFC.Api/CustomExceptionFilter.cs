@@ -12,7 +12,7 @@ namespace GFC.Api
     {
         public void OnException(ExceptionContext context)
         {
-            HttpStatusCode status = HttpStatusCode.InternalServerError;
+            HttpStatusCode status = HttpStatusCode.BadRequest;
             String message = String.Empty;
 
             var exceptionType = context.Exception.GetType();
@@ -34,14 +34,14 @@ namespace GFC.Api
             else
             {
                 message = context.Exception.Message;
-                status = HttpStatusCode.NotFound;
+                status = HttpStatusCode.BadRequest;
             }
             context.ExceptionHandled = true;
            
             HttpResponse response = context.HttpContext.Response;
             response.StatusCode = (int)status;
             response.ContentType = "application/json";
-            var err = message + " " + context.Exception.StackTrace;
+            var err = message;
             response.WriteAsync(err);
         }
     }

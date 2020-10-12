@@ -91,95 +91,12 @@ namespace GFC.Api.Controllers.SystemInformation
                     ServiceInfo srvInfo = new ServiceInfo();
                     srvInfo.ServiceName = service.ServiceName;
                     srvInfo.ServiceDisplayName = service.DisplayName;
-                    srvInfo.ServiceStatus = service.Status == ServiceControllerStatus.Running ? "Service is Running" : "Service is Stopped";
+                    srvInfo.ServiceStatus = service.Status.ToString();
+                    srvInfo.ServiceStartupType = service.StartType.ToString();
                     serviceInfo.Add(srvInfo);
                 }
             }
             return serviceInfo;
-        }
-
-        /// <summary>
-        /// Call the method to start any service by providing service name
-        /// </summary>
-        /// <param name="serviceName"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("StartService")]
-        public ActionResult<string> StartService(string serviceName)
-        {
-            string serviceStatus = string.Empty;
-            ServiceController service = new ServiceController(serviceName);
-
-            if (service.Status == ServiceControllerStatus.Stopped)
-            {
-                // Start the service, and wait until its status is "Running".
-                service.Start();
-                service.WaitForStatus(ServiceControllerStatus.Running);
-                serviceStatus = serviceName + "has been started Successfully";
-            }
-            return serviceStatus;
-        }
-
-        /// <summary>
-        /// Call the method to stop the service
-        /// </summary>
-        /// <param name="serviceName"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("StopService")]
-        public ActionResult<string> StopService(string serviceName)
-        {
-            string serviceStatus = string.Empty;
-            ServiceController service = new ServiceController(serviceName);
-
-            if (service.Status == ServiceControllerStatus.Running)
-            {
-                // Start the service, and wait until its status is "Running".
-                service.Stop();
-                service.WaitForStatus(ServiceControllerStatus.Stopped);
-                serviceStatus = serviceName + "has been Stopped Successfully";
-            }
-            return serviceStatus;
-        }
-
-        /// <summary>
-        /// Call the method to restart the service
-        /// </summary>
-        /// <param name="serviceName"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("RestartService")]
-        public ActionResult<string> RestartService(string serviceName)
-        {
-            string serviceStatus = string.Empty;
-            ServiceController service = new ServiceController(serviceName);
-
-
-            if (service.Status == ServiceControllerStatus.Running)
-            {
-                // Start the service, and wait until its status is "Running".
-                service.Stop();
-                service.WaitForStatus(ServiceControllerStatus.Stopped);
-            }
-            if (service.Status == ServiceControllerStatus.Stopped)
-            {
-                // Start the service, and wait until its status is "Running".
-                service.Start();
-                service.WaitForStatus(ServiceControllerStatus.Running);
-                serviceStatus = serviceName + "has been Restarted Successfully";
-            }
-            return serviceStatus;
-        }
-
-        /// <summary>
-        /// set the registry
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("SetRegistry")]
-        public ActionResult<string> SetRegistry()
-        {
-            return _systemInfoBO.SetRegistry();
         }
 
         /// <summary>

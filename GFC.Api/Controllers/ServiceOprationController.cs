@@ -10,32 +10,32 @@ namespace GFC.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiceOprationController : ControllerBase
+    public class ServiceOperationController : ControllerBase
     {
-        private readonly IServiceOprationBAL _serviceOprationBAL;
+        private readonly IServiceOperationBAL _serviceOperationBAL;
 
-        public ServiceOprationController(IServiceOprationBAL serviceOprationBAL)
+        public ServiceOperationController(IServiceOperationBAL serviceOperationBAL)
         {
-            _serviceOprationBAL = serviceOprationBAL;
+            _serviceOperationBAL = serviceOperationBAL;
         }
 
         [HttpPost]
         [Route("StopService")]
         public ActionResult<string> StopService(string serviceName)
         {
-            return _serviceOprationBAL.StopService(serviceName);
+            return _serviceOperationBAL.StopService(serviceName);
         }
         [HttpPost]
         [Route("StartService")]
         public ActionResult<string> StartService(string serviceName)
         {
-            return _serviceOprationBAL.StartService(serviceName);
+            return _serviceOperationBAL.StartService(serviceName);
         }
         [HttpPost]
         [Route("RestartService")]
         public ActionResult<string> RestartService(string serviceName)
         {
-            return _serviceOprationBAL.RestartService(serviceName);
+            return _serviceOperationBAL.RestartService(serviceName);
         }
     }
 }

@@ -29,5 +29,8 @@ namespace GFC.Utility.Common
         public const int Port = 6621;
         public const int SSLPort = 6622;
 
+        public const string INSTALL_PATH = @"C:\Program Files\TalonFAST";
+        public const string jobsXMLName = "prepopjobs.xml";
+
     }
 }

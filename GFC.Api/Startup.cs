@@ -35,20 +35,34 @@ namespace GFC.Api
         {
             services.AddControllers();
             services.AddMemoryCache();
-            services.Configure<MySettings>(Configuration.GetSection(nameof(MySettings)));
+            services.AddHttpsRedirection(options => options.HttpsPort = 8999);
+            services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
 
             services.AddTransient<ISystemInfoBAL, SystemInfoBAL>();
             services.AddTransient<ISystemInfoDAL, SystemInfoDAL>();
             services.AddTransient<IRegistryInfoBAL, RegistryInfoBAL>();
             services.AddTransient<IRegistryInfoDAL, RegistryInfoDAL>();
-            services.AddTransient<IServiceOprationBAL, ServiceOprationBAL>();
-            services.AddTransient<IServiceOprationDAL, ServiceOprationDAL>();
+            services.AddTransient<IServiceOperationBAL, ServiceOperationBAL>();
+            services.AddTransient<IServiceOperationDAL, ServiceOperationDAL>();
+            services.AddTransient<IPrePopJobsBAL, PrePopJobsBAL>();
+            services.AddTransient<IPrePopJobsDAL, PrePopJobsDAL>();
+            services.AddTransient<IPrePopJobFactory, PrePopJobFactory>();
             services.AddMvc(
                 config =>
                 {
                     config.Filters.Add(typeof(CustomExceptionFilter));
                 }
             );
+
+            services.AddSwaggerGen(options => {
+                options.SwaggerDoc("v1",
+                    new Microsoft.OpenApi.Models.OpenApiInfo
+                    {
+                        Title = " GFC WebApi",
+                        Description = "GFC WebApi Documents",
+                        Version = "v1"
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +84,8 @@ namespace GFC.Api
                 endpoints.MapControllers();
             });
 
+            app.UseHttpsRedirection();
+
             app.UseExceptionHandler(
              options =>
              {
@@ -87,6 +103,13 @@ namespace GFC.Api
                  });
              }
             );
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Conference Planner APIs");
+                c.RoutePrefix = "";
+            });
         }
     }
 }

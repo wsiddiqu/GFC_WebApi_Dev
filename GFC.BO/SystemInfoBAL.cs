@@ -26,10 +26,5 @@ namespace GFC.BAL
         {
             return _systemInfoDAL.GetLastBootUpTime();
         }
-
-        public string SetRegistry()
-        {
-            return _systemInfoDAL.SetRegistry();
-        }
     }
 }

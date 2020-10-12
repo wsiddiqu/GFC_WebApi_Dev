@@ -58,3 +58,8 @@ C:\GFC\GFC.Api\obj\Release\netcoreapp3.1\win-x64\GFC.Api.dll
 C:\GFC\GFC.Api\obj\Release\netcoreapp3.1\win-x64\GFC.Api.pdb
 C:\GFC\GFC.Api\obj\Release\netcoreapp3.1\win-x64\GFC.Api.genruntimeconfig.cache
 C:\GFC\GFC.Api\obj\Release\netcoreapp3.1\win-x64\GFC.Api.csprojAssemblyReference.cache
+C:\GFC\GFC.Api\bin\Release\netcoreapp3.1\win-x64\Microsoft.OpenApi.dll
+C:\GFC\GFC.Api\bin\Release\netcoreapp3.1\win-x64\Swashbuckle.AspNetCore.Swagger.dll
+C:\GFC\GFC.Api\bin\Release\netcoreapp3.1\win-x64\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\GFC\GFC.Api\bin\Release\netcoreapp3.1\win-x64\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\GFC\GFC.Api\obj\Release\netcoreapp3.1\win-x64\GFC.Api.MvcApplicationPartsAssemblyInfo.cs

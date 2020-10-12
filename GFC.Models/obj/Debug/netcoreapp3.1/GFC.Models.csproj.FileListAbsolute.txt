@@ -10,15 +10,3 @@ C:\Users\siddique_w\source\repos\GFC\GFC.Models\obj\Debug\netcoreapp3.1\GFC.Mode
 C:\Users\siddique_w\source\repos\GFC\GFC.Models\bin\Debug\netcoreapp3.1\GFC.Utility.dll
 C:\Users\siddique_w\source\repos\GFC\GFC.Models\bin\Debug\netcoreapp3.1\GFC.Utility.pdb
 C:\Users\siddique_w\source\repos\GFC\GFC.Models\obj\Debug\netcoreapp3.1\GFC.Models.csproj.CopyComplete
-C:\GFC\GFC.Models\bin\Debug\netcoreapp3.1\GFC.Models.deps.json
-C:\GFC\GFC.Models\bin\Debug\netcoreapp3.1\GFC.Models.dll
-C:\GFC\GFC.Models\bin\Debug\netcoreapp3.1\GFC.Models.pdb
-C:\GFC\GFC.Models\bin\Debug\netcoreapp3.1\GFC.Utility.dll
-C:\GFC\GFC.Models\bin\Debug\netcoreapp3.1\GFC.Utility.pdb
-C:\GFC\GFC.Models\obj\Debug\netcoreapp3.1\GFC.Models.csprojAssemblyReference.cache
-C:\GFC\GFC.Models\obj\Debug\netcoreapp3.1\GFC.Models.AssemblyInfoInputs.cache
-C:\GFC\GFC.Models\obj\Debug\netcoreapp3.1\GFC.Models.AssemblyInfo.cs
-C:\GFC\GFC.Models\obj\Debug\netcoreapp3.1\GFC.Models.csproj.CoreCompileInputs.cache
-C:\GFC\GFC.Models\obj\Debug\netcoreapp3.1\GFC.Models.csproj.CopyComplete
-C:\GFC\GFC.Models\obj\Debug\netcoreapp3.1\GFC.Models.dll
-C:\GFC\GFC.Models\obj\Debug\netcoreapp3.1\GFC.Models.pdb

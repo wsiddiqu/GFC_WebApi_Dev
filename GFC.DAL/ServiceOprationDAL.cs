@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GFC.DAL
 {
-    public class ServiceOprationDAL : IServiceOprationDAL
+    public class ServiceOperationDAL : IServiceOperationDAL
     {
         public string RestartService(string serviceName)
         {

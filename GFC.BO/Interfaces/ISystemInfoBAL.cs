@@ -8,6 +8,5 @@ namespace GFC.BAL.Interfaces
     {
         string GetIpAddress();
         string GetLastBootUpTime();
-        string SetRegistry();
     }
 }

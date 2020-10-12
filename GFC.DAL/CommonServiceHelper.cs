@@ -1,9 +1,12 @@
 ﻿using GFC.DAL.Interfaces;
 using GFC.Models;
 using GFC.Utility.Common;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.ServiceProcess;
 using System.Text;
@@ -372,6 +375,44 @@ namespace GFC.DAL
                 serviceStatus = serviceName + "Service not available";
             }
             return serviceStatus;
+        }
+
+        public static string GetIpAddress()
+        {
+            String hostName = Dns.GetHostName();
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "Computer name :" + hostName;
+        }
+
+        /// <summary>
+        /// Get Default Install Dir
+        /// </summary>
+        /// <returns></returns>
+        public static string GetDefaultInstallDir()
+        {
+            string installPath = Constants.INSTALL_PATH;
+
+            using (var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+            {
+                var subRegKey = hklm.OpenSubKey("Software/Talon");
+                if (subRegKey != null)
+                {
+                    string regValue = (string)subRegKey.GetValue("InstallationDir");
+                    if (!string.IsNullOrWhiteSpace(regValue))
+                    {
+                        installPath = regValue;
+                    }
+                }
+            }
+
+            return installPath;
         }
     }
 }

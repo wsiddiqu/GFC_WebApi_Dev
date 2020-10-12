@@ -9,28 +9,28 @@ namespace GFC.BAL
     /// <summary>
     /// Class is created to call data access layer & execute business logic for any Service Operation
     /// </summary>
-    public class ServiceOprationBAL : IServiceOprationBAL
+    public class ServiceOperationBAL : IServiceOperationBAL
     {
-        private readonly IServiceOprationDAL _serviceOprationDAL;
+        private readonly IServiceOperationDAL _serviceOperationDAL;
 
-        public ServiceOprationBAL(IServiceOprationDAL serviceOprationDAL)
+        public ServiceOperationBAL(IServiceOperationDAL serviceOperationDAL)
         {
-            _serviceOprationDAL = serviceOprationDAL;
+            _serviceOperationDAL = serviceOperationDAL;
         }
 
         public string RestartService(string serviceName)
         {
-            return _serviceOprationDAL.RestartService(serviceName);
+            return _serviceOperationDAL.RestartService(serviceName);
         }
 
         public string StartService(string serviceName)
         {
-            return _serviceOprationDAL.StartService(serviceName);
+            return _serviceOperationDAL.StartService(serviceName);
         }
 
         public string StopService(string serviceName)
         {
-            return _serviceOprationDAL.StopService(serviceName);
+            return _serviceOperationDAL.StopService(serviceName);
         }
     }
 }
