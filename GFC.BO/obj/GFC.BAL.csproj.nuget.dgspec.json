@@ -108,6 +108,10 @@
               "target": "Package",
               "version": "[4.7.0, )"
             },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.10.0, )"
+            },
             "System.Management": {
               "target": "Package",
               "version": "[4.7.0, )"

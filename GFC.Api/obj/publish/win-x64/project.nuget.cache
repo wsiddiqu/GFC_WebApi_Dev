@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "mu535LEB+3lc+KKyr0Hy6+pLPjeHu77b2tAbngiv8tdYhPYkSqJ/da1+QzGmcImzjzTt/mq/of5hPCL24Yln0A==",
+  "dgSpecHash": "crU7lRz289ijPMk6Q2HU7mo+zpMa9XpcgCF/6pTlbDLFQRavKIO+pPurp04G6hiT13amv2LbbfEFpAAo5JPTPw==",
   "success": true,
   "projectFilePath": "C:\\GFC\\GFC.Api\\GFC.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\AzureUser\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\4.1.1\\microsoft.aspnetcore.mvc.versioning.4.1.1.nupkg.sha512",
     "C:\\Users\\AzureUser\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\AzureUser\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\3.1.5\\microsoft.extensions.caching.abstractions.3.1.5.nupkg.sha512",
     "C:\\Users\\AzureUser\\.nuget\\packages\\microsoft.extensions.caching.memory\\3.1.5\\microsoft.extensions.caching.memory.3.1.5.nupkg.sha512",

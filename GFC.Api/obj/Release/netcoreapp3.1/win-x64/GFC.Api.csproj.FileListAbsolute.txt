@@ -63,3 +63,4 @@ C:\GFC\GFC.Api\bin\Release\netcoreapp3.1\win-x64\Swashbuckle.AspNetCore.Swagger.
 C:\GFC\GFC.Api\bin\Release\netcoreapp3.1\win-x64\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\GFC\GFC.Api\bin\Release\netcoreapp3.1\win-x64\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\GFC\GFC.Api\obj\Release\netcoreapp3.1\win-x64\GFC.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\GFC\GFC.Api\bin\Release\netcoreapp3.1\win-x64\Microsoft.AspNetCore.Mvc.Versioning.dll

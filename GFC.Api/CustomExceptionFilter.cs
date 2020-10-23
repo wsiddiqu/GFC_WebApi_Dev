@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GFC.Api.Logger;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace GFC.Api
     {
         public void OnException(ExceptionContext context)
         {
+            Log.Information("Log the exception");
             HttpStatusCode status = HttpStatusCode.BadRequest;
             String message = String.Empty;
 
@@ -37,11 +40,12 @@ namespace GFC.Api
                 status = HttpStatusCode.BadRequest;
             }
             context.ExceptionHandled = true;
-           
+
             HttpResponse response = context.HttpContext.Response;
             response.StatusCode = (int)status;
             response.ContentType = "application/json";
             var err = message;
+            Log.Error(string.Format("Error details:\n{0}", context.Exception.StackTrace.ToString()));
             response.WriteAsync(err);
         }
     }

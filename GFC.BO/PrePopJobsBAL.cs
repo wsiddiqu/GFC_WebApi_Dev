@@ -24,9 +24,9 @@ namespace GFC.BAL
         /// </summary>
         /// <param name="jobParams"></param>
         /// <param name="type"></param>
-        public void CreatePrePopJob(PrePopulationJob jobParams,string type)
+        public void CreatePrePopJob(PrePopulationJob jobParams, string type)
         {
-            _prePopJobsDAL =  _prePopJobFactory.CreatePrePopJobOperation(type);
+            _prePopJobsDAL = _prePopJobFactory.CreatePrePopJobOperation(type);
             jobParams = GetJobParamsMapping(jobParams);
             _prePopJobsDAL.CreatePrePopJob(jobParams);
         }
@@ -36,7 +36,7 @@ namespace GFC.BAL
         /// </summary>
         /// <param name="jobParams"></param>
         /// <param name="type"></param>
-        public void UpdatePrePopJob(PrePopulationJob jobParams,string type)
+        public void UpdatePrePopJob(PrePopulationJob jobParams, string type)
         {
             _prePopJobsDAL = _prePopJobFactory.CreatePrePopJobOperation(type);
             jobParams = GetJobParamsMapping(jobParams);
@@ -60,7 +60,7 @@ namespace GFC.BAL
         /// <param name="jobId"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public PrePopJobModel GetPrePopJobDetails(string jobId,string type)
+        public PrePopJobModel GetPrePopJobDetails(string jobId, string type)
         {
             _prePopJobsDAL = _prePopJobFactory.CreatePrePopJobOperation(type);
             return _prePopJobsDAL.GetPrePopJobDetails(jobId);

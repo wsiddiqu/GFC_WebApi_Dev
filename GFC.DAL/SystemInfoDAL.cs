@@ -1,5 +1,6 @@
 ﻿using GFC.DAL.Interfaces;
 using Microsoft.Win32;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Management;
@@ -30,7 +31,7 @@ namespace GFC.DAL
         {
             string lastBoostUptime = string.Empty;
             // define a select query
-
+            
             SelectQuery query =
                 new SelectQuery("SELECT LastBootUpTime FROM Win32_OperatingSystem WHERE Primary = 'true'");
 
@@ -53,55 +54,5 @@ namespace GFC.DAL
             }
             return lastBoostUptime;
         }
-
-        //public string SetRegistry()
-        //{
-            
-        //        string returnResult = string.Empty;
-        //        var test = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings");
-
-        //        //storing the values  
-        //        test.SetValue("Setting1", "This is our setting 1");
-        //        test.SetValue("Setting2", "This is our setting 2");
-        //        test.Close();
-
-        //        //opening the subkey  
-        //        RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OurSettings");
-        //        RegistryKey key1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Talon\LicenseClient");
-
-        //        if (key1 != null)
-        //        {
-        //            returnResult = "CustomerID : " + key1.GetValue("CustomerID").ToString();
-        //            key1.Close();
-        //        }
-                
-        //        return returnResult;
-            
-        //}
-
-        //public string GetRegistry()
-        //{
-
-        //    string returnResult = string.Empty;
-        //    var test = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings");
-
-        //    //storing the values  
-        //    test.SetValue("Setting1", "This is our setting 1");
-        //    test.SetValue("Setting2", "This is our setting 2");
-        //    test.Close();
-
-        //    //opening the subkey  
-        //    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OurSettings");
-        //    RegistryKey key1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Talon\LicenseClient");
-
-        //    if (key1 != null)
-        //    {
-        //        returnResult = "CustomerID : " + key1.GetValue("CustomerID").ToString();
-        //        key1.Close();
-        //    }
-            
-        //    return returnResult;
-
-        //}
     }
 }

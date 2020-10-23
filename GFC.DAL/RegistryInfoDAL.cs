@@ -2,6 +2,7 @@
 using GFC.Models;
 using GFC.Utility.Common;
 using Microsoft.Win32;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -106,7 +107,7 @@ namespace GFC.DAL
             string subRegKey = Constants.REGKEY_SA_NASDB + "\\" + backendServerModel.BackendServerName;
             CreateKey(Constants.REGKEY_SA_SERVER_SYSID);
             CreateKey(subRegKey);
-
+            Log.Information((string.Format("New CIFS Server {0} is added.", backendServerModel.BackendServerName)));
             if ((backendServerModel.UserName != string.Empty) && (backendServerModel.Password != string.Empty))
             {
                 SetValue(subRegKey, Constants.REGSTR_VAL_USERNAME, backendServerModel.UserName);
@@ -153,7 +154,7 @@ namespace GFC.DAL
                 SetValue(Constants.REGKEY_SA_SERVER_SYSID, Constants.REGSTR_VAL_ISCLIENT, "");
                 SetValue(Constants.REGKEY_SA_SERVER_SYSID, Constants.REGSTR_VAL_ISSERVER, "");
             }
-
+            Log.Information((string.Format("Deleted Server {0} successfully.", server)));
             commonServiceHelper.StopTumServer();
         }
 
@@ -239,6 +240,8 @@ namespace GFC.DAL
         {
             CommonServiceHelper commonServiceHelper = new CommonServiceHelper();
 
+            Log.Debug("[Set Customer] The Backend Server Customer Info  for Customer Id [{0}].", CustomerID);
+
             SetValue(Constants.REGKEY_SA_TUM_SERVER, Constants.REGKEY_SA_CUSTOMERID, CustomerID);
             SetValue(Constants.REGKEY_SA_SERVER_SYSID, Constants.REGSTR_VAL_SYSID, CustomerID);
             SetValue(Constants.REGKEY_SA_SERVER_SYSID, Constants.REGSTR_VAL_ISCLIENT, "No");
@@ -256,19 +259,14 @@ namespace GFC.DAL
         /// <returns>int</returns>
         public int JoinDomain(JoinDomainModel joinDomainModel)
         {
-            try
+            Log.Information("[Join Domain] required info has been pass to join the Domain.");
+            uint result = CommonServiceHelper.NetJoinDomain(joinDomainModel.Server, joinDomainModel.Domain, joinDomainModel.OU, joinDomainModel.Account, joinDomainModel.Password, (JoinOptions.NETSETUP_JOIN_DOMAIN | JoinOptions.NETSETUP_DOMAIN_JOIN_IF_JOINED | JoinOptions.NETSETUP_ACCT_CREATE));
+            if (result == 0 && (!string.IsNullOrEmpty(joinDomainModel.RestartNow) && joinDomainModel.RestartNow.ToLower() == "yes"))
             {
-                uint result = CommonServiceHelper.NetJoinDomain(joinDomainModel.Server, joinDomainModel.Domain, joinDomainModel.OU, joinDomainModel.Account, joinDomainModel.Password, (JoinOptions.NETSETUP_JOIN_DOMAIN | JoinOptions.NETSETUP_DOMAIN_JOIN_IF_JOINED | JoinOptions.NETSETUP_ACCT_CREATE));
-                if (result == 0)
-                {
-                    SystemRestart(joinDomainModel.Server);
-                }
-                return Convert.ToInt32(result);
+                Log.Debug("[Join Domain] Restart the system if join the domain");
+                SystemRestart(joinDomainModel.Server);
             }
-            catch (Exception e)
-            {
-                return 11;
-            }
+            return Convert.ToInt32(result);
         }
 
         /// <summary>
@@ -278,19 +276,16 @@ namespace GFC.DAL
         /// <returns></returns>
         public int UnJoinDomain(JoinDomainModel joinDomainModel)
         {
-            try
+
+            Log.Information("[UnJoin Domain] required info has been pass to unjoin the Domain.");
+            int result = CommonServiceHelper.NetUnjoinDomain(joinDomainModel.Server, joinDomainModel.Account, joinDomainModel.Password, (UnJoinOptions.NETSETUP_ACCT_DELETE | UnJoinOptions.NONE));
+            if (result == 0 && (!string.IsNullOrEmpty(joinDomainModel.RestartNow) && joinDomainModel.RestartNow.ToLower() == "yes"))
             {
-                int result = CommonServiceHelper.NetUnjoinDomain(joinDomainModel.Server, joinDomainModel.Account, joinDomainModel.Password, (UnJoinOptions.NETSETUP_ACCT_DELETE | UnJoinOptions.NONE));
-                if (result == 0)
-                {
-                    SystemRestart(joinDomainModel.Server);
-                }
-                return Convert.ToInt32(result);
+                Log.Debug("[UnJoin Domain] Restart the system if unjoin the domain");
+                SystemRestart(joinDomainModel.Server);
             }
-            catch (Exception e)
-            {
-                return 11;
-            }
+            return Convert.ToInt32(result);
+
         }
 
         /// <summary>
@@ -299,6 +294,7 @@ namespace GFC.DAL
         /// <param name="systemAddress"></param>
         public void SystemRestart(string systemAddress)
         {
+            Log.Information("[System Restart] Restarting the system {0}", systemAddress);
             Process commandProcess = new Process();
             try
             {

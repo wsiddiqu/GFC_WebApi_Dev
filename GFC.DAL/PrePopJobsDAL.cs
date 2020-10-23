@@ -1,6 +1,7 @@
 ﻿using GFC.DAL.Interfaces;
 using GFC.Models;
 using GFC.Utility.Common;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,37 +24,50 @@ namespace GFC.DAL
         /// <param name="jobParams"></param>
         public void CreatePrePopJob(PrePopulationJob jobParams)
         {
-            string startTime = string.Empty;
-            string stopTime = string.Empty;
-            if (jobParams.StartTime != null)
+            try
             {
-                startTime = DateConversion(jobParams.StartTime);
-            }
-            if (jobParams.StopTime != null)
-            {
-                stopTime = DateConversion(jobParams.StopTime);
-            }
-            LoadXML();
-            xDoc.Root.Element("Jobs").Add(new XElement("Job",
-                        new XElement("JobID", jobParams.JobID),
-                        new XElement("CacheNames", jobParams.CacheName.Select(l => new XElement("CacheName", l))),
-                        new XElement("PathFilters", new XElement("UNCPath", jobParams.Filters.UNCPath),
-                                                   new XElement("Recursive", jobParams.Filters.Recursive),
-                                                   new XElement("MetadataOnly", jobParams.Filters.MetadataOnly),
-                                                   new XElement("ExtensionFlag", (int)jobParams.Filters.ExtensionFlag),
-                                                   (int)jobParams.Filters.ExtensionFlag == 0 ? null : new XElement("Extensions", jobParams.Filters.Extensions),
-                                                   new XElement("LastModifiedTime", jobParams.Filters.LastModifiedTime)
-                                                    ),
-                        new XElement("Frequency",
-                       new XElement("Type", jobParams.Frequency.JobType),
-                       new XElement("Value", jobParams.Frequency.Value),
-                       new XElement("ExecuteAt", jobParams.Frequency.ExecuteAt)),
-                        new XElement("StartTime", startTime),
-                        new XElement("StopTime", stopTime)
-                         ));
+                string startTime = string.Empty;
+                string stopTime = string.Empty;
+                if (jobParams.StartTime != null)
+                {
+                    startTime = DateConversion(jobParams.StartTime);
+                }
+                if (jobParams.StopTime != null)
+                {
+                    stopTime = DateConversion(jobParams.StopTime);
+                }
+                LoadXML();
+                xDoc.Root.Element("Jobs").Add(new XElement("Job",
+                            new XElement("JobID", jobParams.JobID),
+                            new XElement("CacheNames", jobParams.CacheName.Select(l => new XElement("CacheName", l))),
+                            new XElement("PathFilters", new XElement("UNCPath", jobParams.Filters.UNCPath),
+                                                       new XElement("Recursive", jobParams.Filters.Recursive),
+                                                       new XElement("MetadataOnly", jobParams.Filters.MetadataOnly),
+                                                       new XElement("ExtensionFlag", (int)jobParams.Filters.ExtensionFlag),
+                                                       (int)jobParams.Filters.ExtensionFlag == 0 ? null : new XElement("Extensions", jobParams.Filters.Extensions),
+                                                       new XElement("LastModifiedTime", jobParams.Filters.LastModifiedTime)
+                                                        ),
+                            new XElement("Frequency",
+                           new XElement("Type", jobParams.Frequency.JobType),
+                           new XElement("Value", jobParams.Frequency.Value),
+                           new XElement("ExecuteAt", jobParams.Frequency.ExecuteAt)),
+                            new XElement("StartTime", startTime),
+                            new XElement("StopTime", stopTime)
+                             ));
 
-            UpdateTimeStamp();
-            SaveXML();
+                UpdateTimeStamp();
+                SaveXML();
+            }
+            catch (System.Xml.XmlException ex)
+            {
+                Log.Error("[Create-PrePopulationJob] Invalid XML operation." +
+                        "Please check the below error for details.\nSystem Error:\n" + ex.Message);
+
+            }
+            finally
+            {
+                UnloadXML();
+            }
         }
 
         /// <summary>
@@ -74,14 +88,25 @@ namespace GFC.DAL
         public void DeleteAllPrePopJobs()
         {
             LoadXML();
-
-            var jobs = xDoc.Root.Elements("Jobs").Descendants("Job");
-            if (jobs != null)
+            try
             {
-                jobs.Remove();
+                var jobs = xDoc.Root.Elements("Jobs").Descendants("Job");
+                if (jobs != null)
+                {
+                    jobs.Remove();
 
-                UpdateTimeStamp();
-                SaveXML();
+                    UpdateTimeStamp();
+                    SaveXML();
+                }
+            }
+            catch (System.Xml.XmlException ex)
+            {
+                Log.Error("[Delete-PrePopulationJob] Invalid XML operation." +
+                        "Please check the below error for details.\nSystem Error:\n" + ex.Message);
+            }
+            finally
+            {
+                UnloadXML();
             }
         }
 
@@ -225,23 +250,31 @@ namespace GFC.DAL
         /// </summary>
 		void LoadXML()
         {
-            string jobFilePath = CommonServiceHelper.GetDefaultInstallDir() + "\\policies\\server\\" + Constants.jobsXMLName;
-            if (File.Exists(jobFilePath))
+            try
             {
-                if (xDoc != null)
-                    xDoc = null;
+                string jobFilePath = CommonServiceHelper.GetDefaultInstallDir() + "\\policies\\server\\" + Constants.jobsXMLName;
+                if (File.Exists(jobFilePath))
+                {
+                    if (xDoc != null)
+                        xDoc = null;
 
-                xDoc = XDocument.Load(jobFilePath);
+                    xDoc = XDocument.Load(jobFilePath);
+                }
+                else
+                {
+                    xDoc = new XDocument(
+                            new XDeclaration("1.0", "utf-8", "yes"),
+                            new XElement("PrePopJobs",
+                                         new XAttribute("version", "1.0"),
+                                         new XAttribute("lastUpdated", DateTime.UtcNow.ToString("s")),
+                                         new XElement("Jobs")));
+                    xDoc.Save(jobFilePath);
+                }
             }
-            else
+            catch (System.IO.FileNotFoundException ex)
             {
-                xDoc = new XDocument(
-                        new XDeclaration("1.0", "utf-8", "yes"),
-                        new XElement("PrePopJobs",
-                                     new XAttribute("version", "1.0"),
-                                     new XAttribute("lastUpdated", DateTime.UtcNow.ToString("s")),
-                                     new XElement("Jobs")));
-                xDoc.Save(jobFilePath);
+                throw new Exception("[Get-PrePopJobDETAIL] Error loading Pre-population Job file. " +
+        "Please verify that the Pre-population Job file exists in the installation folder.\nSystem Error:\n" + ex.Message);
             }
         }
 
@@ -251,13 +284,21 @@ namespace GFC.DAL
         /// <param name="loadAfterSave"></param>
 		void SaveXML(bool loadAfterSave = false)
         {
-            string jobFilePath = CommonServiceHelper.GetDefaultInstallDir() + "\\policies\\server\\" + Constants.jobsXMLName;
-            xDoc.Save(jobFilePath);
-
-            if (loadAfterSave)
+            try
             {
-                xDoc = null;
-                xDoc = XDocument.Load(jobFilePath);
+                string jobFilePath = CommonServiceHelper.GetDefaultInstallDir() + "\\policies\\server\\" + Constants.jobsXMLName;
+                xDoc.Save(jobFilePath);
+
+                if (loadAfterSave)
+                {
+                    xDoc = null;
+                    xDoc = XDocument.Load(jobFilePath);
+                }
+            }
+            catch (System.IO.FileNotFoundException ex)
+            {
+                throw new Exception("[Save-PrePopJobDETAIL] Error in Saving Pre-population Job file. " +
+       "Please verify that the Pre-population Job file data.\nSystem Error:\n" + ex.Message);
             }
         }
 

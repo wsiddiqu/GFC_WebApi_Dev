@@ -11,5 +11,6 @@ namespace GFC.Models
         public string OU { get; set; }
         public string Account { get; set; }
         public string Password { get; set; }
+        public string RestartNow { get; set; }
     }
 }

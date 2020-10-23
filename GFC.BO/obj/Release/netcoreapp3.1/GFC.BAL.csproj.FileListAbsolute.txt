@@ -1,0 +1,16 @@
+C:\GFC\GFC.BO\bin\Release\netcoreapp3.1\GFC.BAL.deps.json
+C:\GFC\GFC.BO\bin\Release\netcoreapp3.1\GFC.BAL.dll
+C:\GFC\GFC.BO\bin\Release\netcoreapp3.1\GFC.BAL.pdb
+C:\GFC\GFC.BO\bin\Release\netcoreapp3.1\GFC.DAL.dll
+C:\GFC\GFC.BO\bin\Release\netcoreapp3.1\GFC.Models.dll
+C:\GFC\GFC.BO\bin\Release\netcoreapp3.1\GFC.Utility.dll
+C:\GFC\GFC.BO\bin\Release\netcoreapp3.1\GFC.DAL.pdb
+C:\GFC\GFC.BO\bin\Release\netcoreapp3.1\GFC.Utility.pdb
+C:\GFC\GFC.BO\bin\Release\netcoreapp3.1\GFC.Models.pdb
+C:\GFC\GFC.BO\obj\Release\netcoreapp3.1\GFC.BAL.csprojAssemblyReference.cache
+C:\GFC\GFC.BO\obj\Release\netcoreapp3.1\GFC.BAL.AssemblyInfoInputs.cache
+C:\GFC\GFC.BO\obj\Release\netcoreapp3.1\GFC.BAL.AssemblyInfo.cs
+C:\GFC\GFC.BO\obj\Release\netcoreapp3.1\GFC.BAL.csproj.CoreCompileInputs.cache
+C:\GFC\GFC.BO\obj\Release\netcoreapp3.1\GFC.BAL.csproj.CopyComplete
+C:\GFC\GFC.BO\obj\Release\netcoreapp3.1\GFC.BAL.dll
+C:\GFC\GFC.BO\obj\Release\netcoreapp3.1\GFC.BAL.pdb
