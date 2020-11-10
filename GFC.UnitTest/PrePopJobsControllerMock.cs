@@ -31,14 +31,29 @@ namespace GFC.UnitTest
             _prePopJobModel.Add(prePopJob);
         }
 
+        public void DeleteAllPrePopJobs()
+
+        {
+            if (_prePopJobModel != null)
+            {
+                _prePopJobModel.Clear();
+            }
+        }
+
         public void DeleteAllPrePopJobs(string type)
         {
-            throw new NotImplementedException();
+            if (_prePopJobModel != null)
+            {
+                _prePopJobModel.Clear();
+            }
         }
 
         public void DeletePrePopJobDetails(string jobId,String Type)
         {
-            throw new NotImplementedException();
+            if (_prePopJobModel != null)
+            {
+                _prePopJobModel.RemoveAll(prePopJob => prePopJob.JobID == jobId);
+            }
         }
 
         public PrePopJobModel GetPrePopJobDetails(string jobId,string type)
@@ -56,7 +71,10 @@ namespace GFC.UnitTest
 
         public void UpdatePrePopJob(PrePopulationJob jobParams,string type)
         {
-            throw new NotImplementedException();
+            PrePopJobModel prePopJob = new PrePopJobModel();
+            prePopJob = _prePopJobModel.FirstOrDefault(c => c.JobID == jobParams.JobID);
+            prePopJob.CacheName = jobParams.CacheName;
+            _prePopJobModel.Append(prePopJob);
         }
     }
 }

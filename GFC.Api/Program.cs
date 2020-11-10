@@ -34,10 +34,10 @@ namespace GFC.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     string localIp = "*";
-                    string serverManagerPort = "8999";
-                    string baseUrl = string.Format("https://{0}:{1}", localIp, serverManagerPort);
+                    string serverManagerPort = "6680";
+                    string baseUrl = string.Format("http://{0}:{1}", localIp, serverManagerPort);
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://localhost:8998", baseUrl);
+                    webBuilder.UseUrls("http://localhost:6680", baseUrl);
                 }).UseWindowsService();
     }
 }

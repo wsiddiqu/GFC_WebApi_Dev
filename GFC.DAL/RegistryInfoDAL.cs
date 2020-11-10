@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using static GFC.Utility.Common.Helper;
 
@@ -111,7 +112,11 @@ namespace GFC.DAL
             if ((backendServerModel.UserName != string.Empty) && (backendServerModel.Password != string.Empty))
             {
                 SetValue(subRegKey, Constants.REGSTR_VAL_USERNAME, backendServerModel.UserName);
-                SetValue(subRegKey, Constants.REGSTR_VAL_PASSWORD, backendServerModel.Password);
+                //SetValue(subRegKey, Constants.REGSTR_VAL_PASSWORD, backendServerModel.Password);
+                var result = Encoding.Unicode.GetBytes(backendServerModel.Password);
+                var EncryptedPassword = ProtectedData.Protect(result, null, DataProtectionScope.LocalMachine);
+                //SetValue(subRegKey, Constants.REGSTR_VAL_PASSWORD, EncryptedPassword);
+                SetBinary(subRegKey, Constants.REGSTR_VAL_PASSWORD, EncryptedPassword);
             }
 
             string sServer = (string)GetRegistryValue(Constants.REGKEY_SA_SERVER_SYSID, Constants.REGSTR_VAL_SYSID);
@@ -250,6 +255,21 @@ namespace GFC.DAL
             SetValue(Constants.REGKEY_SA_SERVER_SYSID, Constants.REGSTR_VAL_SERVER_SSLPORT, Constants.SSLPort);
 
             commonServiceHelper.StopTumServer();
+        }
+
+        public static void SetBinary(string path, string valueName, Byte[] value)
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey(path, true);
+
+            if (rk == null)
+            {
+                //throw new TalonException(string.Format("Registry Path {0} does not exist.", path));
+                CreateKey(path);
+                rk = Registry.LocalMachine.OpenSubKey(path, true);
+            }
+
+            rk.SetValue(valueName, value, RegistryValueKind.Binary);
+            rk.Close();
         }
 
         /// <summary>

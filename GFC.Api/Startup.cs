@@ -36,7 +36,6 @@ namespace GFC.Api
         {
             services.AddControllers();
             services.AddMemoryCache();
-            services.AddHttpsRedirection(options => options.HttpsPort = 8999);
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
 
             services.AddTransient<ISystemInfoBAL, SystemInfoBAL>();

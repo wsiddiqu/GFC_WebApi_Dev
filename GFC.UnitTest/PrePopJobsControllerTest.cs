@@ -2,6 +2,8 @@
 using GFC.BAL.Interfaces;
 using GFC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,11 +15,16 @@ namespace GFC.UnitTest
     {
         PrePopJobsController _controller;
         IPrePopJobsBAL _service;
+        IOptionsSnapshot<AppSettings> settings = null;
+        IConfiguration configuration = null;
 
         public PrePopJobsControllerTest()
         {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
             _service = new PrePopJobsControllerMock();
-            _controller = new PrePopJobsController(_service);
+            _controller = new PrePopJobsController(_service, settings, config);
         }
 
         [Fact]
@@ -42,12 +49,7 @@ namespace GFC.UnitTest
         [Fact]
         public void Add_InvalidObjectPassed_ReturnsBadRequest()
         {
-            // Arrange
-            //var nameMissingItem = new PrePopulationJob()
-            //{
-
-            //};
-            PrePopulationJob testItem = new PrePopulationJob()
+           PrePopulationJob testItem = new PrePopulationJob()
             {
                 isFilterByModifiedTime = true,
                 StartTime = DateTime.Now,
@@ -103,6 +105,51 @@ namespace GFC.UnitTest
             // Assert
             Assert.IsType<PrePopulationJob>(item);
             Assert.Equal("PrePop Job Created", item.JobID);
+        }
+
+        [Fact]
+        public void UpdateItemPrePopJob()
+        {
+            // Arrange
+            var testItem = new PrePopulationJob()
+            {
+                JobID = "1",
+                CacheName = new string[] { "setting2" },
+                isFilterByModifiedTime = true,
+                StartTime = DateTime.Now,
+                StopTime = DateTime.Now
+            };
+
+            // Act
+            var createdResponse = _controller.UpdatePrePopulationJob(testItem);
+
+
+            // Assert
+            Assert.IsType<OkResult>(createdResponse);
+        }
+
+         [Fact]
+        public void DeleteAllItemPrePopJob()
+        {
+           
+            // Act
+            var createdResponse = _controller.DeleteAllPrePopJobs();
+
+
+            // Assert
+            Assert.IsType<OkResult>(createdResponse);
+        }
+
+        [Fact]
+        public void DeletePrePopJobDetails()
+        {
+
+            // Act
+            var createdResponse = _controller.DeletePrePop("1");
+
+
+            // Assert
+            Assert.IsType<OkResult>(createdResponse);
         }
     }
 }

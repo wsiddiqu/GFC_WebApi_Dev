@@ -1,6 +1,7 @@
 ﻿using GFC.BAL.Interfaces;
 using GFC.DAL.Interfaces;
 using GFC.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -147,33 +148,42 @@ namespace GFC.BAL
         /// <returns></returns>
         private JobFrequency GetJobFrequency(JobFrequency frequency)
         {
-            DateTime dt = !string.IsNullOrEmpty(frequency.ExecuteAt) ? Convert.ToDateTime(frequency.ExecuteAt) : DateTime.Now;
+            try
+            {
+                DateTime dt = !string.IsNullOrEmpty(frequency.ExecuteAt) ? Convert.ToDateTime(frequency.ExecuteAt) : DateTime.Now;
 
-            if (frequency.JobType == 1)
-            {
-                frequency.JobType = (uint)FrequencyType.RepeatEvery;
-                frequency.Value = (string.IsNullOrEmpty(frequency.Value) ? "days" : frequency.Value);
-                frequency.ExecuteAt = dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2") + ":" + dt.Second.ToString("D2");
+                if (frequency.JobType == 1)
+                {
+                    frequency.JobType = (uint)FrequencyType.RepeatEvery;
+                    frequency.Value = (string.IsNullOrEmpty(frequency.Value) ? "days" : frequency.Value);
+                    frequency.ExecuteAt = dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2") + ":" + dt.Second.ToString("D2");
+                }
+                else if (frequency.JobType == 2)
+                {
+                    frequency.JobType = (uint)FrequencyType.RepeatEveryDayOfWeek;
+                    frequency.Value = (string.IsNullOrEmpty(frequency.Value) ? "Sunday" : frequency.Value);
+                    frequency.ExecuteAt = dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2") + ":" + dt.Second.ToString("D2");
+                }
+                else if (frequency.JobType == 3)
+                {
+                    frequency.JobType = (uint)FrequencyType.RepeatEveryDayOfMonth;
+                    frequency.Value = (string.IsNullOrEmpty(frequency.Value) ? "1st" : frequency.Value);
+                    frequency.ExecuteAt = dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2") + ":" + dt.Second.ToString("D2");
+                }
+                else
+                {
+                    frequency.JobType = (uint)FrequencyType.OneTime;
+                    frequency.Value = string.Empty;
+                    frequency.ExecuteAt = string.Empty;
+                }
+                return frequency;
             }
-            else if (frequency.JobType == 2)
+            catch(Exception ex)
             {
-                frequency.JobType = (uint)FrequencyType.RepeatEveryDayOfWeek;
-                frequency.Value = (string.IsNullOrEmpty(frequency.Value) ? "Sunday" : frequency.Value);
-                frequency.ExecuteAt = dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2") + ":" + dt.Second.ToString("D2");
+                Log.Error("[Create-PrePopulationJob] Invalid XML operation." +
+                        "Please check the below error for details.\nSystem Error:\n" + ex.Message);
+                throw new Exception(string.Format("Invalid Input Parameters Create-PrePopulationJob failed"));
             }
-            else if (frequency.JobType == 3)
-            {
-                frequency.JobType = (uint)FrequencyType.RepeatEveryDayOfMonth;
-                frequency.Value = (string.IsNullOrEmpty(frequency.Value) ? "1st" : frequency.Value);
-                frequency.ExecuteAt = dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2") + ":" + dt.Second.ToString("D2");
-            }
-            else
-            {
-                frequency.JobType = (uint)FrequencyType.OneTime;
-                frequency.Value = string.Empty;
-                frequency.ExecuteAt = string.Empty;
-            }
-            return frequency;
 
         }
 
